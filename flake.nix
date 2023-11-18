@@ -38,7 +38,7 @@
           ];
 
           sdImage = {
-            compressImage = false;
+            #compressImage = false;
             populateFirmwareCommands = let
               configTxt = pkgs.writeText "README" ''
               Nothing to see here. This empty partition is here because I don't know how to turn its creation off.
