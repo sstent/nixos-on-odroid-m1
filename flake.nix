@@ -71,7 +71,8 @@
           # kernel for serial console access to work well
           boot.kernelParams = [ "console=ttyS2,1500000" ];       
           hardware.deviceTree.name = "rockchip/rk3568-odroid-m1.dtb";
-          services.openssh = {
+
+installer.cloneConfig = true;          services.openssh = {
             enable = true;
             settings.PermitRootLogin = "yes";
           };
