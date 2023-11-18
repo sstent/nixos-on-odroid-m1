@@ -79,15 +79,15 @@
           '';
 
           # includes this flake in the live iso : "/etc/nixcfg"
-          #environment.etc.nixcfg.source =
-          #  builtins.filterSource
-          #    (path: type:
-          #      baseNameOf path
-          #      != ".git"
-          #      && type != "symlink"
-          #      && !(pkgs.lib.hasSuffix ".qcow2" path)
-          #      && baseNameOf path != "secrets")
-          #    ../.;
+          environment.etc.nixcfg.source =
+            builtins.filterSource
+              (path: type:
+                baseNameOf path
+                != ".git"
+                && type != "symlink"
+                && !(pkgs.lib.hasSuffix ".qcow2" path)
+                && baseNameOf path != "secrets")
+              ../.;
 
 
       services.openssh = {
