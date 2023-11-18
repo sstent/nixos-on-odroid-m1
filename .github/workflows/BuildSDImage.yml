@@ -40,15 +40,15 @@ jobs:
           name: sd-image-ARM64_img
           path: ./result/sd-image/*.img*
 
-      - name: Download artifact # yes, this is really necessary
-        uses: actions/download-artifact@v2
-        with:
-          name: sd-image-ARM64_img
-          path: release-files
+      # - name: Download artifact # yes, this is really necessary
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: sd-image-ARM64_img
+      #     path: release-files
 
-      - name: Display structure of downloaded files
-        run: ls -lah
-        working-directory: release-files
+      # - name: Display structure of downloaded files
+      #   run: ls -lah
+      #   working-directory: release-files
       
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -58,7 +58,7 @@ jobs:
           tag_name: Latest_ARM64
           body: Auto-generated image build
           prerelease: true
-          files: ./release-files/*
+          files: ./result/sd-image/*.img*
 
 
       # - uses: "marvinpinto/action-automatic-releases@latest"
