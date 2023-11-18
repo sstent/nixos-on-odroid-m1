@@ -71,6 +71,18 @@
           # kernel for serial console access to work well
           boot.kernelParams = [ "console=ttyS2,1500000" ];       
           hardware.deviceTree.name = "rockchip/rk3568-odroid-m1.dtb";
+          
+          # includes this flake in the live iso : "/etc/nixcfg"
+          environment.etc.nixcfg.source =
+            builtins.filterSource
+              (path: type:
+                baseNameOf path
+                != ".git"
+                && type != "symlink"
+                && !(pkgs.lib.hasSuffix ".qcow2" path)
+                && baseNameOf path != "secrets")
+              ../.;
+
 
       services.openssh = {
             enable = true;
