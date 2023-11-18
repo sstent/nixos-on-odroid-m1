@@ -32,7 +32,7 @@ jobs:
 
       - name: Build SD Image
         run: |  
-           nix build --option system aarch64-linux --option sandbox false .#images.m1
+           nix build --option system aarch64-linux --option sandbox false --impure .#images.m1
            ls -lah ./result/sd-image
 
       - uses: actions/upload-artifact@v2
