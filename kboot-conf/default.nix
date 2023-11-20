@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.boot.loader.kboot-conf;
 
   # The builder used to write during system activation
@@ -19,8 +21,7 @@ let
     path = with pkgs.buildPackages; [coreutils gnused gnugrep];
     inherit (pkgs.buildPackages) bash;
   };
-in
-{
+in {
   options = {
     boot.loader.kboot-conf = {
       enable = mkOption {
@@ -52,9 +53,10 @@ in
   };
   config = let
     args = "-g ${toString cfg.configurationLimit} -n ${config.hardware.deviceTree.name}";
-  in mkIf cfg.enable {
-    system.build.installBootLoader = lib.mkForce "${builder} ${args} -c";
-    system.boot.loader.id = "kboot-conf";
-    boot.loader.kboot-conf.populateCmd = "${populateBuilder} ${args}";
-  };
+  in
+    mkIf cfg.enable {
+      system.build.installBootLoader = lib.mkForce "${builder} ${args} -c";
+      system.boot.loader.id = "kboot-conf";
+      boot.loader.kboot-conf.populateCmd = "${populateBuilder} ${args}";
+    };
 }
