@@ -90,11 +90,16 @@
               && baseNameOf path != "secrets")
             ../.;
 
+    environment.systemPackages = [
+      pkgs.git #gotta have git
+    ];
+
+
           services.openssh = {
             enable = true;
             settings.PermitRootLogin = "yes";
           };
-          users.extraUsers.root.initialPassword = lib.mkForce "test123";
+          users.extraUsers.root.initialPassword = lib.mkForce "odroid";
         })
       ];
     };
